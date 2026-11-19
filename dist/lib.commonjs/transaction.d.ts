@@ -1,0 +1,27 @@
+import { BaseContract, ContractFactory, ContractTransaction, TransactionReceipt, TransactionRequest } from 'ethers';
+export interface TransactionProvider {
+    estimateGas: (tx: TransactionRequest) => Promise<bigint>;
+    call: (tx: TransactionRequest) => Promise<string>;
+    resolveName: (name: string) => Promise<null | string>;
+}
+export interface TransactionSigner extends TransactionProvider {
+    sendTransaction: (tx: TransactionRequest) => Promise<any>;
+}
+export declare function RequireSigner(_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor;
+export declare function RequireSigner<TFn extends (this: unknown, ...args: any[]) => any>(value: TFn, _context: ClassMethodDecoratorContext): TFn;
+export declare class Transaction<T> {
+    readonly data: ContractTransaction;
+    receipt?: TransactionReceipt;
+    private readonly signer;
+    private readonly waitCallback;
+    constructor(data: ContractTransaction, signer: TransactionSigner | TransactionProvider, waitCallback: (receipt: TransactionReceipt) => Promise<T>);
+    estimateGas(): Promise<bigint>;
+    wait(confirmations?: number): Promise<T>;
+}
+export declare class Base<C extends BaseContract> {
+    contract: C;
+    protected signer?: TransactionSigner | TransactionProvider;
+    constructor(factory: ContractFactory, address: string, signer?: TransactionSigner | TransactionProvider);
+    connect(signer: TransactionSigner | TransactionProvider): this;
+    getChainId(): Promise<bigint>;
+}

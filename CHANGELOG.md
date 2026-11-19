@@ -1,0 +1,95 @@
+# Changelog
+
+## 2.10.0
+
+- Move receipt UID/timestamp helpers onto EAS and filter logs by EAS address
+- Have EIP712Proxy.getEAS return an EAS instance
+- Add EIP712Proxy.getEASAddress for the EAS contract address
+- Have Indexer.getEAS return an EAS instance and add Indexer.getEASAddress
+
+## 2.9.1
+
+- Fix nested tuple schema decoding
+- Fix ESM module resolution for Node ESM consumers
+- Support new and legacy TypeScript decorators
+
+## 2.9.0
+
+- Add gas estimation API on `Transaction`
+
+## 2.8.0
+
+- Add ESM export alongside CommonJS
+
+## 2.7.0
+
+- Move getUID, getSchemaUID, and getOffchainUID to EAS, SchemaRegistry, and Offchain respectively
+
+## 2.6.1
+
+- Fix exports
+
+## 2.6.0
+
+- Support initializing/connecting SDK objects with/to non-signer providers
+
+## 2.5.0
+
+- Add schema verification function
+- Fix handling of schemas with "ipfsHash" variables
+
+## 2.4.1
+
+- Export Private Data types
+
+## 2.4.0
+
+- Delegated Attestations: if nonce isn't provided, try retrieving it onchain
+
+## 2.3.0
+
+- Add utilities to handle private data
+
+## 2.2.0
+
+- Add a method to receive the tx receipt to the Transaction object
+
+## 2.1.4
+
+- Support legacy versions by coercing them to full semver
+
+## 2.1.2
+
+- Avoid using @ethereum-attestation-service/eas-contracts-legacy in production
+- Automatically derive the EIP712 version via the domain separator
+- Improve delegated attestation backward compatibility
+- Don't require the signer/provider to have the `getAddress` method
+- Allow offchain verification with refUID
+- Don't automatically broadcast transactions. In order to broadcast transactions, it's now always necessary to call the `wait()` function.
+
+## 1.6.1
+
+- Avoid using @ethereum-attestation-service/eas-contracts-legacy in production
+
+## 1.6.0
+
+- Automatically derive the EIP712 version via the domain separator
+- Improve delegated attestation backward compatibility
+
+## 1.5.0
+
+- Introduce framework-agnostic `TransactionSigner` and `TypeDataSigner` interfaces which replace the previous usage of the signer/provider
+- Fix recipient being mandatory in `attest()` calls
+
+## 1.4.2
+
+- Remove nonce from serialization/deserialization of offchain attestations
+
+## 1.4.1
+
+- Check for ethers v6 compatibility
+
+## 1.4.0
+
+- Add customizable salt to offchain attestations to reduce the chance of predictable UIDs (which may be abused in some very specific use-cases)
+- Remove unnecessary offchain attestation version input from the `signOffchainAttestation` API

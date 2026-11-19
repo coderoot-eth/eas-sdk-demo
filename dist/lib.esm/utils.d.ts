@@ -1,0 +1,3 @@
+export declare const ZERO_ADDRESS: string;
+export declare const ZERO_BYTES = "0x";
+export declare const ZERO_BYTES32 = "0x0000000000000000000000000000000000000000000000000000000000000000";
