@@ -1,8 +1,11 @@
 {
-  "name": "@ethereum-attestation-service/eas-sdk",
-  "version": "2.10.0",
-  "description": "Ethereum Attestation Service - TypeScript/JavaScript SDK",
-  "repository": "git@github.com:ethereum-attestation-service/eas-sdk.git",
+  "name": "@coderoot-eth/eas-sdk-demo",
+  "version": "2.10.0-demo.1",
+  "description": "Unofficial demo copy of the Ethereum Attestation Service TypeScript/JavaScript SDK, released through CodeRoot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderoot-eth/eas-sdk-demo.git"
+  },
   "author": "Leonid Beder <leonid@lbeder.com>",
   "license": "MIT",
   "main": "./dist/lib.commonjs/index.js",
