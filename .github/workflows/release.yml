@@ -92,7 +92,7 @@ jobs:
   submit:
     needs: [pack, publish]
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     permissions:
       contents: read
       id-token: write
@@ -104,6 +104,32 @@ jobs:
         env:
           EXPECTED: ${{ needs.pack.outputs.sha256 }}
         run: '[ "$(sha256sum package.tgz | cut -d" " -f1)" = "$EXPECTED" ] || { echo "digest mismatch"; exit 1; }'
+      # CodeRoot reads the version and its provenance from npm, which serves them minutes after the
+      # upload, and npm's CDN keeps a miss for up to 60 s and the package document for up to 300 s.
+      - name: Wait until npm serves the provenance
+        env:
+          NAME: ${{ needs.pack.outputs.name }}
+          VERSION: ${{ needs.pack.outputs.version }}
+        run: |
+          set -euo pipefail
+          reg=https://registry.npmjs.org
+          pkg="${NAME/\//%2f}"
+          deadline=$(( $(date +%s) + 900 ))
+          while :; do
+            code=$(curl -s -o att.json -w '%{http_code}' "$reg/-/npm/v1/attestations/$pkg@$VERSION") || true
+            if [ "$code" = 200 ] && jq -e '[.attestations[]?.predicateType // ""] | any(startswith("https://slsa.dev/provenance/"))' att.json >/dev/null; then
+              break
+            fi
+            [ "$(date +%s)" -lt "$deadline" ] || { echo "::error::npm did not serve the provenance for $NAME@$VERSION within 15 minutes (last HTTP $code)"; exit 1; }
+            sleep 15
+          done
+          echo "npm serves the provenance for $NAME@$VERSION"
+          published=$(curl -sf "$reg/$pkg" | jq -r --arg v "$VERSION" '.time[$v] // empty')
+          [ -n "$published" ] || { echo "::error::npm's package document has no publish time for $VERSION"; exit 1; }
+          settle=$(( $(date -d "$published" +%s) + 330 - $(date +%s) ))
+          [ "$settle" -ge 75 ] || settle=75
+          echo "waiting ${settle}s for npm's cached copies to expire"
+          sleep "$settle"
       - name: Submit to CodeRoot
         uses: coderoot-eth/action@4367129c8915b9f6733044cb02d5a5adf8e301b3 # v1.2.0
         with:
