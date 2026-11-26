@@ -1,6 +1,6 @@
 {
   "name": "@coderoot-eth/eas-sdk-demo",
-  "version": "2.10.0-demo.1",
+  "version": "2.10.0-demo.2",
   "description": "Unofficial demo copy of the Ethereum Attestation Service TypeScript/JavaScript SDK, released through CodeRoot",
   "repository": {
     "type": "git",
