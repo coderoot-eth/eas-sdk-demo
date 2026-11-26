@@ -1,6 +1,6 @@
 > **Unofficial demo copy of the Ethereum Attestation Service SDK, released through CodeRoot to show release attestation. Not published, reviewed or endorsed by EAS. The official package is [`@ethereum-attestation-service/eas-sdk`](https://www.npmjs.com/package/@ethereum-attestation-service/eas-sdk).**
 >
-> This copy is published as `@coderoot-eth/eas-sdk-demo`. [NOTICE.md](https://github.com/coderoot-eth/eas-sdk-demo/blob/main/NOTICE.md) names the upstream commit and lists every change.
+> This copy is published as `@coderoot-eth/eas-sdk-demo`. [NOTICE.md](https://github.com/coderoot-eth/eas-sdk-demo/blob/main/NOTICE.md) names the upstream commit and lists every change. [CODEROOT.md](https://github.com/coderoot-eth/eas-sdk-demo/blob/main/CODEROOT.md) shows how this copy is released, checked and revoked.
 
 # Ethereum Attestation Service - TypeScript/JavaScript SDK
 

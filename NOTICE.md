@@ -16,6 +16,7 @@ published, reviewed or endorsed by the Ethereum Attestation Service. The officia
 | `package.json` | `name` is `@coderoot-eth/eas-sdk-demo`; `version` is `2.10.0-demo.N`; `repository` is this repository; `description` says it is an unofficial demo copy |
 | `README.md` | a disclaimer added at the top; the rest is upstream's |
 | `NOTICE.md` | this file, added |
+| `CODEROOT.md` | added: how this copy is released, checked and revoked, with the gas of the attestation |
 | `.github/workflows/release.yml` | added: builds, publishes to npm with provenance, and submits the release to CodeRoot |
 
 The SDK's source, its tests, its build and its dependencies are unchanged. Published tarballs differ
